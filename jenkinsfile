@@ -10,7 +10,7 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
-                    bat 'docker build -t myappimage F:\aws_devOps_Intellipaat\devOps\project\sample'
+                    bat 'docker build -t myappimage .'
                 }
             }
         }
