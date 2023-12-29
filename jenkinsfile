@@ -10,7 +10,7 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
-                    sh 'docker build -t myfrstimage .'
+                    sh 'docker build C:\ProgramData\Jenkins\.jenkins\jobs\job -t myappimage'
                 }
             }
         }
