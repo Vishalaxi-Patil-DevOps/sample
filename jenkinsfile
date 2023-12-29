@@ -10,11 +10,7 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
-                    def image = 'yourapp:latest'
-                    def dockerfilePath = 'F:\\aws_devOps_Intellipaat\\devOps\\project\\sample\\Dockerfile'
-
-                    // Build Docker image
-                    docker.build(image, '-f ' + dockerfilePath + ' .')
+                    bat 'docker build -t yourapp:latest .'
                 }
             }
         }
