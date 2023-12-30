@@ -12,3 +12,5 @@ RUN javac App.java
 
 # Specify the command to run on container start
 CMD ["java", "App"]
+
+ENTRYPOINT ["java", "App"]
