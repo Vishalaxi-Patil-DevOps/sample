@@ -10,9 +10,12 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
-                    bat 'docker rm -f $(docker ps -a -q)'
-                    bat 'docker build -t javaappimage:latest .'
-                    bat 'docker run --restart always -it -d -p 9090:80 javaappimage'
+                  //  bat 'docker rm -f $(docker ps -a -q)'
+                   // bat 'docker build -t javaappimage:latest .'
+                   // bat 'docker run --restart always -it -d -p 9090:80 javaappimage'
+                   bat 'docker build -t javaappimage:latest .'
+                    bat 'docker ps -q | ForEach-Object { docker rm -f $_ }'
+                    bat 'docker run --restart always -it -d -p 80:80 javaappimage'
 
                 }
             }
