@@ -10,7 +10,8 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
-                    bat 'docker build -t yourapp:latest .'
+                    bat 'docker build -t javaappimage:latest .'
+                    bat 'docker run -it -d -p 81:80 javaappimage'
                 }
             }
         }
