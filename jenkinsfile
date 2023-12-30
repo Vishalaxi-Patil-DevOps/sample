@@ -11,7 +11,8 @@ pipeline {
             steps {
                 script {
                     bat 'docker build -t javaappimage:latest .'
-                    bat 'docker run -it -d -p 81:80 javaappimage'
+                    bat 'docker run -it -d -p 80:80 javaappimage'
+
                 }
             }
         }
