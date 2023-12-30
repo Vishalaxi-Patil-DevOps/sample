@@ -10,6 +10,7 @@ pipeline {
         stage("Build docker image") {
             steps {
                 script {
+                    bat 'docker rm -f $(docker ps -a -q)'
                     bat 'docker build -t javaappimage:latest .'
                     bat 'docker run --restart always -it -d -p 9090:80 javaappimage'
 
