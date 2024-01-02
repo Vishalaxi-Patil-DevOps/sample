@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-pwd')
+    }
+
     stages {
         stage("Git Checkout") {
             steps {
@@ -22,7 +26,7 @@ pipeline {
                 }
             }
         }
-
+        /*
         stage("Push Docker image to dockerHub") {
             steps {
                 script {
@@ -30,10 +34,17 @@ pipeline {
                       //  bat 'docker login -u patyl -p ${dockerhubpwd}'
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
                     bat 'echo %dockerhubpwd% | docker login -u patyl --password-stdin'
-                        bat 'docker push patyl/javaappimage'
+                    bat 'docker push patyl/javaappimage'
                     }
                 }
             }
         }
+       */
+       stage("push to dockerhub") {
+        withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            bat 'docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD'
+            bat 'docker push javaappimage'
+        }
+       }
     }
 }
