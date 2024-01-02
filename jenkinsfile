@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKER_USERNAME = credentials('dockerhub-credentials').username
-        DOCKER_PASSWORD = credentials('dockerhub-credentials').password
+        DOCKER_USERNAME = "${DOCKER_HUB_CREDENTIALS_USR}"
+        DOCKER_PASSWORD = "${DOCKER_HUB_CREDENTIALS_PSW}"
     }
 
     stages {
@@ -26,8 +26,10 @@ pipeline {
         stage("Push to Docker Hub") {
             steps {
                 script {
-                    bat 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                    bat 'docker push javaappimage'
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_HUB_CREDENTIALS_USR', passwordVariable: 'DOCKER_HUB_CREDENTIALS_PSW')]) {
+                        bat 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                        bat 'docker push javaappimage'
+                    }
                 }
             }
         }
