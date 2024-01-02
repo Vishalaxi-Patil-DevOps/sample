@@ -26,8 +26,10 @@ pipeline {
         stage("Push Docker image to dockerHub") {
             steps {
                 script {
+                    //withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                      //  bat 'docker login -u patyl -p ${dockerhubpwd}'
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                        bat 'docker login -u patyl -p ${dockerhubpwd}'
+                    bat 'echo %dockerhubpwd% | docker login -u patyl --password-stdin'
                         bat 'docker push patyl/javaappimage'
                     }
                 }
