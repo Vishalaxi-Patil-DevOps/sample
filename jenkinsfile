@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-pwd')
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage("push to dockerhub") {
+        stage("Push to Docker Hub") {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
