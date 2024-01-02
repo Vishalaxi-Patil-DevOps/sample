@@ -11,6 +11,6 @@ COPY ./FIRSTAPP/src /usr/src/app
 RUN javac App.java
 
 # Specify the command to run on container start
-CMD ["java", "App"]
+#CMD ["java", "App"]
 
 ENTRYPOINT ["java", "App"]
